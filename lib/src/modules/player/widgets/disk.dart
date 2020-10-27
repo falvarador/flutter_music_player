@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:music_player/src/data/models/audio_player_model.dart';
+import 'package:provider/provider.dart';
 
 class Disk extends StatelessWidget {
   const Disk({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
+
     return Container(
       child: Container(
         padding: EdgeInsets.all(20),
@@ -15,8 +20,15 @@ class Disk extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Image(
-                  image: AssetImage('assets/coldplay.png'),
+                SpinPerfect(
+                  duration: Duration(milliseconds: 5000),
+                  infinite: true,
+                  manualTrigger: true,
+                  controller: (animationController) =>
+                      audioPlayerModel.controller = animationController,
+                  child: Image(
+                    image: AssetImage('assets/coldplay.png'),
+                  ),
                 ),
                 Container(
                   width: 25,
