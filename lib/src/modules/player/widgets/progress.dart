@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:music_player/src/data/models/audio_player_model.dart';
+import 'package:provider/provider.dart';
+
 class Progress extends StatelessWidget {
   const Progress({Key key}) : super(key: key);
 
@@ -9,12 +12,15 @@ class Progress extends StatelessWidget {
       color: Colors.white.withOpacity(0.4),
     );
 
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
+    final percentage = audioPlayerModel.percentage;
+
     return Container(
       child: Container(
         child: Column(
           children: <Widget>[
             Text(
-              '00:00',
+              '${audioPlayerModel.songTotalDuration}',
               style: textStyle,
             ),
             SizedBox(
@@ -31,7 +37,7 @@ class Progress extends StatelessWidget {
                   bottom: 0,
                   child: Container(
                     width: 3,
-                    height: 30,
+                    height: 230 * percentage,
                     color: Colors.white.withOpacity(0.7),
                   ),
                 )
@@ -41,7 +47,7 @@ class Progress extends StatelessWidget {
               height: 20,
             ),
             Text(
-              '00:00',
+              '${audioPlayerModel.songCurrentDuration}',
               style: textStyle,
             ),
           ],
